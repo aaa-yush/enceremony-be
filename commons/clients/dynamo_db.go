@@ -23,7 +23,7 @@ type DynamoDBAPI interface {
 	TransactWriteItems(ctx context.Context, params *dynamodb.TransactWriteItemsInput, optFns ...func(*dynamodb.Options)) (*dynamodb.TransactWriteItemsOutput, error)
 }
 
-type DynamoExtended struct {
+type dynamoAPIImpl struct {
 	*dynamodb.Client
 }
 
@@ -36,6 +36,6 @@ func NewDynamoDBClient(config *models.AwsConf) DynamoDBAPI {
 	// Create DynamoDB client.
 	client := dynamodb.NewFromConfig(cfg)
 
-	return &DynamoExtended{client}
+	return &dynamoAPIImpl{client}
 
 }
