@@ -16,7 +16,7 @@ func NewConfig() (*Config, error) {
 	var confStr string
 	var err error
 
-	envKey := "ence"
+	envKey := "enceremony"
 
 	secretName := fmt.Sprintf("prod/%s/all", envKey)
 
