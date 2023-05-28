@@ -18,12 +18,11 @@ type DynamoDBAPI interface {
 	UpdateItem(ctx context.Context, params *dynamodb.UpdateItemInput, optFns ...func(*dynamodb.Options)) (*dynamodb.UpdateItemOutput, error)
 
 	BatchWriteItem(ctx context.Context, params *dynamodb.BatchWriteItemInput, optFns ...func(*dynamodb.Options)) (*dynamodb.BatchWriteItemOutput, error)
-	//BatchWriteMax10(ctx context.Context, tableName string, batch []types.WriteRequest) (*dynamodb.BatchWriteItemOutput, error)
 
 	TransactWriteItems(ctx context.Context, params *dynamodb.TransactWriteItemsInput, optFns ...func(*dynamodb.Options)) (*dynamodb.TransactWriteItemsOutput, error)
 }
 
-type DynamoExtended struct {
+type dynamoAPIImpl struct {
 	*dynamodb.Client
 }
 
@@ -36,6 +35,6 @@ func NewDynamoDBClient(config *models.AwsConf) DynamoDBAPI {
 	// Create DynamoDB client.
 	client := dynamodb.NewFromConfig(cfg)
 
-	return &DynamoExtended{client}
+	return &dynamoAPIImpl{client}
 
 }
