@@ -6,6 +6,7 @@ import (
 	"enceremony-be/internal/config"
 	"enceremony-be/internal/events/repo"
 	"enceremony-be/pkg/events"
+	"go.uber.org/zap"
 )
 
 type EventService interface {
@@ -15,14 +16,39 @@ type EventService interface {
 }
 
 type impl struct {
-	log  *logger.Logger
-	conf *config.Config
-	repo repo.EventsRepo
+	logger *logger.Logger
+	conf   *config.Config
+	repo   repo.EventsRepo
 }
 
 func (i *impl) GetAllEvents(ctx context.Context) (*events.EventList, error) {
-	//TODO implement me
-	panic("implement me")
+
+	repoRes, err := i.repo.GetEvents(ctx)
+	if err != nil {
+		i.logger.Errorw("GetAllEvents", zap.String("ctx", "repoFail"), zap.Error(err))
+		return nil, err
+	}
+
+	el := events.EventList{}
+
+	for _, v := range repoRes {
+		el.Events = append(el.Events, events.EventListItem{
+			EventDetailCommons: events.EventDetailCommons{
+				Id: v.Id,
+				Creator: &events.Creator{
+					Id:   v.User.Id,
+					Name: v.User.Name,
+				},
+				CAt:      v.CreatedAt,
+				UAt:      v.EventDate,
+				Name:     v.Name,
+				ShareUrl: "TBD",
+			},
+		})
+	}
+
+	return &el, err
+
 }
 
 func (i *impl) GetEventDetails(ctx context.Context, id string) (*events.EventDetails, error) {
@@ -36,8 +62,8 @@ func NewEventService(
 	eventRepo repo.EventsRepo,
 ) EventService {
 	return &impl{
-		log:  log,
-		conf: conf,
-		repo: eventRepo,
+		logger: log,
+		conf:   conf,
+		repo:   eventRepo,
 	}
 }

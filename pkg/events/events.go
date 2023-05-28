@@ -1,18 +1,22 @@
 package events
 
-import "enceremony-be/pkg/product"
+import (
+	"enceremony-be/pkg/product"
+	"time"
+)
 
 type EventList struct {
 	Events []EventListItem `json:"events"`
 }
 
 type EventDetailCommons struct {
-	Id       string   `json:"id"`
-	Creator  *Creator `json:"creator"`
-	CAt      string   `json:"c_at"`
-	UAt      string   `json:"u_at"`
-	Name     string   `json:"name"`
-	ShareUrl string   `json:"share_url"`
+	Id        string    `json:"id"`
+	Creator   *Creator  `json:"creator"`
+	CAt       time.Time `json:"c_at"`
+	UAt       time.Time `json:"u_at"`
+	EventDate time.Time `json:"event_date"`
+	Name      string    `json:"name"`
+	ShareUrl  string    `json:"share_url"`
 }
 
 type EventListItem struct {
@@ -20,10 +24,8 @@ type EventListItem struct {
 }
 
 type Creator struct {
-	Fn string `json:"fn"`
-	Mn string `json:"mn"`
-	Ln string `json:"ln"`
-	Id string `json:"id"`
+	Id   string `json:"id"`
+	Name string `json:"string"`
 }
 
 type EventDetails struct {
