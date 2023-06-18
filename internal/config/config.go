@@ -11,9 +11,14 @@ import (
 )
 
 type Config struct {
-	Aws    string
+	Aws    AwsConf
 	Logger conf.LoggerConf
 	Mysql  mconfig.MysqlConfig
+}
+
+type AwsConf struct {
+	Endpoint  string
+	AccountID string `validate:"required"`
 }
 
 func NewConfig() (*Config, error) {

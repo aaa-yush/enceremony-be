@@ -36,8 +36,8 @@ func (i *impl) GetAllEvents(ctx context.Context) (*events.EventList, error) {
 			EventDetailCommons: events.EventDetailCommons{
 				Id: v.Id,
 				Creator: &events.Creator{
-					Id:   v.User.Id,
-					Name: v.User.Name,
+					Id:   v.Id,
+					Name: v.Name,
 				},
 				CAt:      v.CreatedAt,
 				UAt:      v.EventDate,

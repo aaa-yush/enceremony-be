@@ -27,10 +27,5 @@ func NewZapLogger(config *conf.LoggerConf) (*zap.SugaredLogger, error) {
 		return nil, errors.New(fmt.Sprintf("zap logger build constructs failed. Err: %s", err))
 	}
 
-	// Disable stacktrace
-	if config.RemoveStackTrace {
-		zl = zl.WithOptions(zap.AddStacktrace(zap.DPanicLevel))
-	}
-
 	return zl.Sugar(), nil
 }

@@ -52,7 +52,7 @@ func (r *routerImpl) MapRoutes() {
 	r.engine.Use(location.Default())
 
 	r.engine.GET("/ping", func(c *gin.Context) {
-		c.String(200, "Server is running")
+		c.String(200, "Ence Server is running")
 	})
 
 	r.engine.Use(middleware.RecoveryWithZap(r.logger.Desugar(), true))

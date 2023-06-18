@@ -50,7 +50,7 @@ func createConnection(conf *config.MysqlConfig, logger *logger.Logger) (*gorm.DB
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		conf.UserName, conf.Password, conf.Host, conf.Port, conf.DbName)
-	db, err := sql.Open("nrmysql", dsn)
+	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		logger.Errorw("MysqlConnection", zap.String("ctx", "MysqlOpen"), zap.Error(err))
 		return nil, err
