@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type User struct {
 	Id          string `gorm:"primarykey"`
@@ -13,6 +16,7 @@ type User struct {
 	Address     string `gorm:"size:200"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
+	DeletedAt   gorm.DeletedAt
 }
 
 func (us User) TableName() string {
