@@ -6,9 +6,9 @@ import (
 )
 
 type Event struct {
-	Id          string `gorm:"index;primarykey;not null"`
-	Name        string `gorm:"not null;size:50"`
-	User        User
+	Id   string `gorm:"index;primarykey;not null"`
+	Name string `gorm:"not null;size:50"`
+	//User        User
 	Description string `gorm:"size:200"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time

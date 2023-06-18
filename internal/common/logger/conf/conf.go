@@ -1,6 +1,5 @@
 package conf
 
 type LoggerConf struct {
-	Environment      string
-	RemoveStackTrace bool
+	Environment string `json:"env"`
 }

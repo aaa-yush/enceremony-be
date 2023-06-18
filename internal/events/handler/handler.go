@@ -3,12 +3,14 @@ package handler
 import (
 	"enceremony-be/internal/common/logger"
 	"enceremony-be/internal/config"
+	"enceremony-be/internal/events/service"
 	"github.com/gin-gonic/gin"
 )
 
 type impl struct {
-	logger *logger.Logger
-	conf   config.Config
+	logger   *logger.Logger
+	conf     *config.Config
+	eventSvc service.EventService
 }
 
 type EventsHandler interface {
@@ -18,10 +20,12 @@ type EventsHandler interface {
 
 func NewEventsHandler(
 	log *logger.Logger,
-	conf config.Config,
+	conf *config.Config,
+	eventSvc service.EventService,
 ) EventsHandler {
 	return &impl{
-		logger: log,
-		conf:   conf,
+		logger:   log,
+		conf:     conf,
+		eventSvc: eventSvc,
 	}
 }

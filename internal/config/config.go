@@ -1,14 +1,24 @@
 package config
 
 import (
+	mconfig "enceremony-be/commons/clients/mysql/config"
+	"enceremony-be/internal/common/logger/conf"
 	"enceremony-be/internal/config/aws_conf"
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 )
 
 type Config struct {
-	Aws string
+	Aws    AwsConf
+	Logger conf.LoggerConf
+	Mysql  mconfig.MysqlConfig
+}
+
+type AwsConf struct {
+	Endpoint  string
+	AccountID string `validate:"required"`
 }
 
 func NewConfig() (*Config, error) {
@@ -30,16 +40,26 @@ func NewConfig() (*Config, error) {
 		return nil, err
 	}
 
-	// use a single instance of Validate, it caches struct info
-	//validatorSvc := validator.New()
-	//
-	//err = validatorSvc.Struct(config)
-	//if err != nil {
-	//	for _, err := range err.(validator.ValidationErrors) {
-	//		fmt.Println(err)
-	//	}
-	//	return nil, err
-	//}
-
 	return &config, nil
+}
+
+func NewLoggerConf(config *Config) *conf.LoggerConf {
+	return &config.Logger
+}
+
+func NewMysqlConf(conf *Config) *mconfig.MysqlConfig {
+	mc := conf.Mysql
+	return &mconfig.MysqlConfig{
+		UserName:          mc.UserName,
+		Password:          mc.Password,
+		Host:              mc.Host,
+		Port:              mc.Port,
+		DbName:            mc.DbName,
+		ConnectionTimeOut: int64(time.Hour),
+		//Verbose:           IsStage(config),
+		Verbose:      true,
+		MaxOpenConns: 15,
+		MaxIdleConns: 10,
+		PrepareStmt:  true,
+	}
 }
