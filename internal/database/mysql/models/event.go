@@ -20,3 +20,8 @@ type Event struct {
 func (ev Event) TableName() string {
 	return "events"
 }
+
+type EventDetails struct {
+	Event
+	Products []EventProductDetails
+}

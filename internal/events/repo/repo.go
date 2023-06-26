@@ -10,7 +10,7 @@ import (
 type EventsRepo interface {
 	GetEvents(ctx context.Context) ([]models.Event, error)
 
-	GetEventDetails(ctx context.Context, eventId string) (*models.Event, error)
+	GetEventDetails(ctx context.Context, eventId string) (*models.EventDetails, error)
 
 	InsertEvent(ctx context.Context, insertData *models.Event) error
 	GetAllEventsByUserId(ctx context.Context, userId string) ([]models.Event, error)
@@ -47,6 +47,19 @@ func (e *eventsRepoImpl) GetEvents(ctx context.Context) ([]models.Event, error) 
 	return e.mysqlStore.GetAllEvents(ctx)
 }
 
-func (e *eventsRepoImpl) GetEventDetails(ctx context.Context, eventId string) (*models.Event, error) {
-	return e.mysqlStore.GetEventDetails(ctx, eventId)
+func (e *eventsRepoImpl) GetEventDetails(ctx context.Context, eventId string) (*models.EventDetails, error) {
+
+	products, err := e.mysqlStore.GetProductsByEventId(ctx, eventId)
+	if err != nil {
+		return nil, err
+	}
+
+	ed, err := e.mysqlStore.GetEventDetails(ctx, eventId)
+
+	resp := models.EventDetails{
+		Event:    *ed,
+		Products: products,
+	}
+
+	return &resp, nil
 }

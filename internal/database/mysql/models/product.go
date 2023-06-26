@@ -35,5 +35,3 @@ type EventProducts struct {
 func (epr EventProducts) TableName() string {
 	return "event_products"
 }
-
-// select p.* from product p left join event_products ep on p.id = ep.product_id where ep.event_id = ?
