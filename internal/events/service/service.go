@@ -13,6 +13,12 @@ type EventService interface {
 	GetAllEvents(ctx context.Context) (*events.EventList, error)
 
 	GetEventDetails(ctx context.Context, id string) (*events.EventDetails, error)
+
+	InsertEvent(ctx context.Context, insertData *events.EventDetails) error
+
+	GetAllEventsByUserId(ctx context.Context, userId string) (*events.EventList, error)
+
+	UpdateEvent(ctx context.Context, updateEvent *events.EventDetails) (*events.EventDetails, error)
 }
 
 type impl struct {
@@ -52,8 +58,8 @@ func (i *impl) GetAllEvents(ctx context.Context) (*events.EventList, error) {
 }
 
 func (i *impl) GetEventDetails(ctx context.Context, id string) (*events.EventDetails, error) {
-	//TODO implement me
-	panic("implement me")
+
+	res, err := i.repo.GetEventDetails(ctx, id)
 }
 
 func NewEventService(

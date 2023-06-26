@@ -1,11 +1,10 @@
-package main
+package auth
 
-import (
-	"enceremony-be/cmd"
-)
+type AuthService interface {
+}
 
-func main() {
-	//
+func authservice() {
+
 	//key := "Secret-session-key" // Replace with your SESSION_SECRET or similar
 	//maxAge := 86400 * 30        // 30 days
 	//isProd := false             // Set to true when serving over https
@@ -47,5 +46,5 @@ func main() {
 	//})
 	//log.Println("listening on localhost:3000")
 	//log.Fatal(http.ListenAndServe(":3000", p))
-	cmd.Execute()
+
 }

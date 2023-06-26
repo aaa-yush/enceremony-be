@@ -30,6 +30,7 @@ type Creator struct {
 
 type EventDetails struct {
 	EventDetailCommons
-	PhotoUrl string            `json:"photo_url"`
-	Products []product.Product `json:"products"`
+	PhotoUrl         string            `json:"photo_url"`
+	Products         []product.Product `json:"products"`
+	EventDescription string            `json:"event_description"`
 }
