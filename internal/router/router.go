@@ -55,6 +55,9 @@ func (r *routerImpl) MapRoutes() {
 		c.String(200, "Ence Server is running")
 	})
 
+	apiV1 := r.engine.Group("v1")
+	r.addEventEndpoints(apiV1)
+
 	r.engine.Use(middleware.RecoveryWithZap(r.logger.Desugar(), true))
 
 }

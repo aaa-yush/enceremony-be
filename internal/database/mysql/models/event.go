@@ -19,12 +19,3 @@ type Event struct {
 func (ev Event) TableName() string {
 	return "events"
 }
-
-type EventProducts struct {
-	Event   Event
-	Product Product
-}
-
-func (epr EventProducts) TableName() string {
-	return "event_products"
-}
