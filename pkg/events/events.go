@@ -25,7 +25,7 @@ type EventListItem struct {
 
 type Creator struct {
 	Id   string `json:"id"`
-	Name string `json:"string"`
+	Name string `json:"name"`
 }
 
 type EventDetails struct {

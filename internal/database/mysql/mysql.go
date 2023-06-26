@@ -20,19 +20,32 @@ type MysqlStore interface {
 	GetAllEventsByUserId(ctx context.Context, userId string) ([]models.Event, error)
 	GetEventDetails(ctx context.Context, eventId string) (*models.Event, error)
 	UpdateEvent(ctx context.Context, updateEvent *models.Event) (*models.Event, error)
+	DeleteEvent(ctx context.Context, id string) error
 
 	/*
 		USER
 	*/
 	CreateUser(ctx context.Context, user *models.User) error
 	GetUserDetails(ctx context.Context, userId string) (*models.User, error)
+
+	/*
+		PRODUCT
+	*/
+	GetProductDetails(ctx context.Context, productId string) (*models.Product, error)
+	AddProduct(ctx context.Context, productDetail *models.Product) error
+	DeleteProduct(ctx context.Context, id string) error
+
+	/*
+		EVENT-Product
+	*/
+	GetProductsByEventId(ctx context.Context, eventId string) ([]models.EventProductDetails, error)
 }
 
 type mysqlStoreImpl struct {
-	logger     *logger.Logger
-	conf       *config.Config
-	mysqlDb    *gorm.DB
-	connection mysql.Connection
+	logger  *logger.Logger
+	conf    *config.Config
+	mysqlDb *gorm.DB
+	//connection mysql.Connection
 }
 
 func (m *mysqlStoreImpl) Save(ctx context.Context, data interface{}) error {

@@ -67,3 +67,10 @@ func (m *mysqlStoreImpl) InsertEvent(ctx context.Context, insertData *models.Eve
 
 	return err
 }
+
+func (m *mysqlStoreImpl) DeleteEvent(ctx context.Context, id string) error {
+
+	deletePredicate := models.Event{Id: id}
+
+	return m.mysqlDb.WithContext(ctx).Model(&models.Event{}).Where(deletePredicate).Delete(&deletePredicate).Error
+}
