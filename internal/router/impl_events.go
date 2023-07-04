@@ -11,6 +11,7 @@ func (r *routerImpl) addEventEndpoints(apiV1 *gin.RouterGroup) {
 	// GET /v1/events/by-user/:userId
 	// POST /v1/events/create
 	// PATCH /v1/events/update
+	// DELETE /v1/events/:eventId
 
 	eventRoutes := apiV1.Group("/events")
 	{
@@ -21,5 +22,6 @@ func (r *routerImpl) addEventEndpoints(apiV1 *gin.RouterGroup) {
 		eventRoutes.POST("/create", r.eventHandler.CreateEvent)
 
 		eventRoutes.PATCH("/update", r.eventHandler.UpdateEvent)
+		eventRoutes.DELETE("/:eventId", r.eventHandler.UpdateEvent)
 	}
 }

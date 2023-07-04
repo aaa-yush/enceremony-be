@@ -15,6 +15,7 @@ type EventsRepo interface {
 	InsertEvent(ctx context.Context, insertData *models.Event) error
 	GetAllEventsByUserId(ctx context.Context, userId string) ([]models.Event, error)
 	UpdateEvent(ctx context.Context, updateEvent *models.Event) (*models.Event, error)
+	DeleteEvent(ctx context.Context, eventId string) error
 }
 
 type eventsRepoImpl struct {
@@ -45,6 +46,10 @@ func NewEventsRepo(
 
 func (e *eventsRepoImpl) GetEvents(ctx context.Context) ([]models.Event, error) {
 	return e.mysqlStore.GetAllEvents(ctx)
+}
+
+func (e *eventsRepoImpl) DeleteEvent(ctx context.Context, eventId string) error {
+	return e.mysqlStore.DeleteEvent(ctx, eventId)
 }
 
 func (e *eventsRepoImpl) GetEventDetails(ctx context.Context, eventId string) (*models.EventDetails, error) {

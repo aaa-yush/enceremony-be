@@ -22,6 +22,7 @@ type EventsHandler interface {
 	GetAllEventsByUserId(c *gin.Context)
 
 	UpdateEvent(c *gin.Context)
+	DeleteEvent(c *gin.Context)
 }
 
 func NewEventsHandler(

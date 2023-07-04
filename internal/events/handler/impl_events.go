@@ -69,6 +69,29 @@ func (i *impl) CreateEvent(c *gin.Context) {
 	c.JSON(http.StatusOK, commons.GenericSuccessResponse{Status: "success"})
 }
 
+func (i *impl) DeleteEvent(c *gin.Context) {
+
+	eventId := c.Param("id")
+	if eventId == "" {
+		c.JSON(http.StatusBadRequest, commons.GenericErrorResponse{
+			Status: "error",
+			Error:  "event id is required",
+		})
+		return
+	}
+
+	err := i.eventSvc.DeleteEvent(c, eventId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, commons.GenericErrorResponse{
+			Status: "error",
+			Error:  err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, commons.GenericSuccessResponse{Status: "success"})
+}
+
 func (i *impl) GetAllEventsByUserId(c *gin.Context) {
 
 	eventId := c.Param("userId")

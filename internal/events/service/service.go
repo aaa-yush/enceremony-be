@@ -20,6 +20,8 @@ type EventService interface {
 	GetAllEventsByUserId(ctx context.Context, userId string) (*events.EventList, error)
 
 	UpdateEvent(ctx context.Context, updateEvent *events.EventDetails) (*events.EventDetails, error)
+
+	DeleteEvent(ctx context.Context, eventId string) error
 }
 
 type impl struct {

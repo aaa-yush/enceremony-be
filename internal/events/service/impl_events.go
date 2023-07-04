@@ -92,3 +92,7 @@ func (i *impl) UpdateEvent(ctx context.Context, updateEvent *events.EventDetails
 	}, nil
 
 }
+
+func (i *impl) DeleteEvent(ctx context.Context, eventId string) error {
+	return i.repo.DeleteEvent(ctx, eventId)
+}
