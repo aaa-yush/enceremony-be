@@ -16,6 +16,13 @@ type impl struct {
 type EventsHandler interface {
 	GetEvents(c *gin.Context)
 	GetEventDetails(c *gin.Context)
+
+	CreateEvent(c *gin.Context)
+
+	GetAllEventsByUserId(c *gin.Context)
+
+	UpdateEvent(c *gin.Context)
+	DeleteEvent(c *gin.Context)
 }
 
 func NewEventsHandler(

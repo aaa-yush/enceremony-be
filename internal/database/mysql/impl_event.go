@@ -47,15 +47,17 @@ func (m *mysqlStoreImpl) GetEventDetails(ctx context.Context, eventId string) (*
 
 func (m *mysqlStoreImpl) UpdateEvent(ctx context.Context, updateEvent *models.Event) (*models.Event, error) {
 
-	res := models.Event{}
-
 	err := m.mysqlDb.WithContext(ctx).
 		Model(&models.Event{}).
 		Where(&models.Event{Id: updateEvent.Id}).
 		Updates(updateEvent).
 		Error
 
-	return &res, err
+	if err == nil {
+		return m.GetEventDetails(ctx, updateEvent.Id)
+	}
+
+	return nil, err
 }
 
 func (m *mysqlStoreImpl) InsertEvent(ctx context.Context, insertData *models.Event) error {

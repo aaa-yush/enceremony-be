@@ -16,7 +16,7 @@ type EventDetailCommons struct {
 	UAt       time.Time `json:"u_at"`
 	EventDate time.Time `json:"event_date"`
 	Name      string    `json:"name"`
-	ShareUrl  string    `json:"share_url"`
+	ShareUrl  string    `json:"share_url,omitempty"`
 }
 
 type EventListItem struct {
@@ -30,6 +30,7 @@ type Creator struct {
 
 type EventDetails struct {
 	EventDetailCommons
-	PhotoUrl string            `json:"photo_url"`
-	Products []product.Product `json:"products"`
+	PhotoUrl         string            `json:"photo_url"`
+	Products         []product.Product `json:"products"`
+	EventDescription string            `json:"event_description"`
 }
