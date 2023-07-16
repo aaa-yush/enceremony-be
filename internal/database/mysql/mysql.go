@@ -33,19 +33,21 @@ type MysqlStore interface {
 	*/
 	GetProductDetails(ctx context.Context, productId string) (*models.Product, error)
 	AddProduct(ctx context.Context, productDetail *models.Product) error
+	UpdateProduct(ctx context.Context, productDetail *models.Product) error
 	DeleteProduct(ctx context.Context, id string) error
 
 	/*
 		EVENT-Product
 	*/
 	GetProductsByEventId(ctx context.Context, eventId string) ([]models.EventProductDetails, error)
+	UpdateProductPurchasedStatus(ctx context.Context, eventId, productId string, status bool) error
+	GetProductDetailsByEventId(ctx context.Context, eventId, productId string) (*models.EventProductDetails, error)
 }
 
 type mysqlStoreImpl struct {
 	logger  *logger.Logger
 	conf    *config.Config
 	mysqlDb *gorm.DB
-	//connection mysql.Connection
 }
 
 func (m *mysqlStoreImpl) Save(ctx context.Context, data interface{}) error {

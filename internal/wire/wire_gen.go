@@ -15,6 +15,9 @@ import (
 	"enceremony-be/internal/events/handler"
 	"enceremony-be/internal/events/repo"
 	"enceremony-be/internal/events/service"
+	handler2 "enceremony-be/internal/product/handler"
+	repo2 "enceremony-be/internal/product/repo"
+	service2 "enceremony-be/internal/product/service"
 	"enceremony-be/internal/router"
 )
 
@@ -39,7 +42,10 @@ func InitializeApp() (app.App, error) {
 	eventsRepo := repo.NewEventsRepo(configConfig, mysqlStore)
 	eventService := service.NewEventService(loggerLogger, configConfig, eventsRepo)
 	eventsHandler := handler.NewEventsHandler(loggerLogger, configConfig, eventService)
-	routerRouter := router.NewRouter(configConfig, eventsHandler, loggerLogger)
+	productRepo := repo2.NewProductRepo(configConfig, mysqlStore)
+	productService := service2.NewProductService(loggerLogger, configConfig, productRepo)
+	productHandler := handler2.NewProductHandler(loggerLogger, configConfig, productService)
+	routerRouter := router.NewRouter(configConfig, eventsHandler, loggerLogger, productHandler)
 	appApp := app.NewEnceremonyApp(routerRouter)
 	return appApp, nil
 }
