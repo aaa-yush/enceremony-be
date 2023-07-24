@@ -12,6 +12,9 @@ import (
 	"enceremony-be/internal/events/handler"
 	"enceremony-be/internal/events/repo"
 	"enceremony-be/internal/events/service"
+	handler2 "enceremony-be/internal/product/handler"
+	repo2 "enceremony-be/internal/product/repo"
+	service2 "enceremony-be/internal/product/service"
 	"enceremony-be/internal/router"
 	"github.com/google/wire"
 )
@@ -31,6 +34,9 @@ func InitializeApp() (app.App, error) {
 			mysql.NewMysqlStore,
 			mysql2.NewMysqlConnection,
 			config.NewMysqlConf,
+			handler2.NewProductHandler,
+			service2.NewProductService,
+			repo2.NewProductRepo,
 
 			app.NewEnceremonyApp,
 		))

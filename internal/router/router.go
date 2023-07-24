@@ -6,7 +6,7 @@ import (
 	"enceremony-be/internal/common/middleware"
 	"enceremony-be/internal/config"
 	"enceremony-be/internal/events/handler"
-	"fmt"
+	handler2 "enceremony-be/internal/product/handler"
 	"github.com/gin-contrib/location"
 	"github.com/gin-gonic/gin"
 )
@@ -17,33 +17,33 @@ type Router interface {
 }
 
 type routerImpl struct {
-	conf         *config.Config
-	engine       *gin.Engine
-	eventHandler handler.EventsHandler
-	logger       *logger.Logger
+	conf           *config.Config
+	engine         *gin.Engine
+	eventHandler   handler.EventsHandler
+	productHandler handler2.ProductHandler
+	logger         *logger.Logger
 }
 
 func NewRouter(
 	conf *config.Config,
 	eventHandler handler.EventsHandler,
 	logger *logger.Logger,
+	productHandler handler2.ProductHandler,
 ) Router {
 
 	router := gin.New()
 
 	return &routerImpl{
-		conf:         conf,
-		eventHandler: eventHandler,
-		engine:       router,
-		logger:       logger,
+		conf:           conf,
+		eventHandler:   eventHandler,
+		engine:         router,
+		logger:         logger,
+		productHandler: productHandler,
 	}
 }
 
 func (r *routerImpl) Start(ctx context.Context) error {
-	// Start async worker for publishing events.
-	//r.asyncDispatcher.Run(ctx)
 
-	fmt.Println("Swagger => http://localhost/internal/swagger/index.html")
 	return r.engine.Run("0.0.0.0:8080")
 }
 

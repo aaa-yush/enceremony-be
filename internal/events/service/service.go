@@ -71,9 +71,10 @@ func (i *impl) GetEventDetails(ctx context.Context, id string) (*events.EventDet
 
 	for _, p := range res.Products {
 		products = append(products, product.Product{
-			Id:       p.Id,
-			Name:     p.Name,
-			ImageUrl: "TBD",
+			Id:          p.Id,
+			Name:        p.Name,
+			ImageUrl:    "TBD",
+			IsPurchased: p.IsPurchased,
 		})
 	}
 
