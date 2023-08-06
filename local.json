@@ -1,0 +1,25 @@
+{
+  "isProd": false,
+  "Aws": {
+    "AccountID": "386504422207"
+  },
+  "auth": {
+    "secret": "27c434dcf75587244054792ac4ff30f262c4e77c46cd2f885c352521fbfacae91fbcd16732202ad6a33cc4996c079f8eef0f3f6572d88ffad4b1f4ce2389b3f0"
+  },
+  "gcp": {
+    "client_id": "1045320931526-md4072oj2sbv1922msjhf70m6ob3ldtl.apps.googleusercontent.com",
+    "secret": "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",
+    "cb_url": "http://localhost:80/auth/google/callback",
+    "sess_key": "JkXP1922msHjzKMlm6W20936ob3"
+  },
+  "Logger": {
+    "env": "dev"
+  },
+  "Mysql": {
+    "DbName": "enceremony",
+    "Host": "localhost",
+    "Password": "",
+    "Port": 3306,
+    "UserName": "root"
+  }
+}

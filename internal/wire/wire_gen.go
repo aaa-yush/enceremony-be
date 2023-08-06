@@ -9,6 +9,8 @@ package wire
 import (
 	"enceremony-be/commons/clients/mysql"
 	"enceremony-be/internal/app"
+	"enceremony-be/internal/auth/authorizer"
+	handler3 "enceremony-be/internal/auth/handler"
 	"enceremony-be/internal/common/logger"
 	"enceremony-be/internal/config"
 	mysql2 "enceremony-be/internal/database/mysql"
@@ -19,6 +21,7 @@ import (
 	repo2 "enceremony-be/internal/product/repo"
 	service2 "enceremony-be/internal/product/service"
 	"enceremony-be/internal/router"
+	repo3 "enceremony-be/internal/user/repo"
 )
 
 // Injectors from wire.go:
@@ -45,7 +48,10 @@ func InitializeApp() (app.App, error) {
 	productRepo := repo2.NewProductRepo(configConfig, mysqlStore)
 	productService := service2.NewProductService(loggerLogger, configConfig, productRepo)
 	productHandler := handler2.NewProductHandler(loggerLogger, configConfig, productService)
-	routerRouter := router.NewRouter(configConfig, eventsHandler, loggerLogger, productHandler)
+	userRepo := repo3.NewUserRepo(configConfig, loggerLogger, mysqlStore)
+	authorizerService := authorizer.NewAuthorizerService(loggerLogger, userRepo, configConfig)
+	authHandler := handler3.NewAuthHandler(configConfig, authorizerService)
+	routerRouter := router.NewRouter(configConfig, eventsHandler, loggerLogger, productHandler, authHandler)
 	appApp := app.NewEnceremonyApp(routerRouter)
 	return appApp, nil
 }
