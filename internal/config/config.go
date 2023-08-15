@@ -14,11 +14,26 @@ type Config struct {
 	Aws    AwsConf
 	Logger conf.LoggerConf
 	Mysql  mconfig.MysqlConfig
+	GCP    Gcp  `json:"gcp"`
+	IsProd bool `json:"isProd"`
+	Auth   Auth `json:"auth"`
+}
+
+type Auth struct {
+	SecretKey  string `json:"secret"`
+	RefreshKey string `json:"refresh"`
 }
 
 type AwsConf struct {
 	Endpoint  string
 	AccountID string `validate:"required"`
+}
+
+type Gcp struct {
+	ClientId    string `json:"client_id"`
+	Secret      string `json:"secret"`
+	SessionKey  string `json:"sess_key"`
+	CallbackUrl string `json:"cb_url"`
 }
 
 func NewConfig() (*Config, error) {

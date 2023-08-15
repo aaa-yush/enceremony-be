@@ -25,8 +25,9 @@ type MysqlStore interface {
 	/*
 		USER
 	*/
-	CreateUser(ctx context.Context, user *models.User) error
+	CreateUser(ctx context.Context, user *models.User) (*models.User, error)
 	GetUserDetails(ctx context.Context, userId string) (*models.User, error)
+	GetUserDetailsByEmail(ctx context.Context, email string) (*models.User, error)
 
 	/*
 		PRODUCT
